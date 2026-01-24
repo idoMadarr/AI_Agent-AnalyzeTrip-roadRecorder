@@ -25,6 +25,13 @@ async def analyze_trip(body: dict):
         They include evenly distributed points across the trip and do not represent the complete path.
         The original total waypoint count is provided separately.
 
+        IMPORTANT SPECIAL CASE:
+        If the data strongly indicates that the movement was walking rather than a vehicle
+        (e.g. consistently very low speeds, short distances, frequent direction changes),
+        DO NOT perform a driving analysis.
+        Instead, return a short response explaining that the trip appears to have been made on foot.
+        Example tone:
+        "We detected that this trip was likely done by walking rather than driving, so driving insights are not applicable."
 
         Focus on:
             - Overall trip characteristics (distance, duration, speed profile)
@@ -38,8 +45,8 @@ async def analyze_trip(body: dict):
             - Do NOT invent data that is not present
             - Keep the tone professional and neutral
             - Avoid bullet points — write as a flowing analysis
-            - Maximum length: 200 words
-
+            - Maximum length: 85 words
+            
         Trip data:
         <data>
             {{trip_data}}
