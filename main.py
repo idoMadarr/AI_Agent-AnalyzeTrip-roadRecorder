@@ -27,11 +27,12 @@ async def analyze_trip(body: dict):
 
         IMPORTANT SPECIAL CASE:
         If the data strongly indicates that the movement was walking rather than a vehicle
-        (e.g. consistently very low speeds, short distances, frequent direction changes),
-        DO NOT perform a driving analysis.
-        Instead, return a short response explaining that the trip appears to have been made on foot.
+        (e.g. consistently very low speeds (below 10 km/h)), DO NOT perform a driving analysis.
+        Instead, return a short response (Maximum length: 25 words) explaining that the trip appears to have been made on foot.
         Example tone:
         "We detected that this trip was likely done by walking rather than driving, so driving insights are not applicable."
+        
+        If the data indicates a trip via vehicle, perform driving analysis.
 
         Focus on:
             - Overall trip characteristics (distance, duration, speed profile)
